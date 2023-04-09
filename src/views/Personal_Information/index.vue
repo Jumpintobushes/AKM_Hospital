@@ -12,16 +12,21 @@
 				<el-button type="primary" @click="confirm">确定</el-button>
 			</div>
 		</el-dialog>
+
 		<el-dialog
 			:title="'修改密码'"
 			:visible.sync="PWisShow"
-			width="30%"
-			:before-close="handleClose"
 		>
-			<div>确定提交吗？</div>
+			<common-form
+				:formLabel="PWopertateFormLabel"
+				:form="PWoperateForm"
+				:inline="true"
+				ref="form"
+			>
+			</common-form>
 			<div slot="footer" class="dialog-footer">
 				<el-button @click="PWisShow = false">取消</el-button>
-				<el-button type="primary" @click="confirm">确定</el-button>
+				<el-button type="primary" @click="Change_the_password">确定</el-button>
 			</div>
 		</el-dialog>
 
@@ -35,7 +40,7 @@
 			</common-form>
 
 		<div class="manage-footer">
-			<el-button type="primary" @click="addUser">提交</el-button>
+			<el-button type="primary" @click="Update_Information">提交</el-button>
 			<el-button type="primary" @click="Change_the_password">修改密码</el-button>
 		</div>
 
@@ -155,6 +160,10 @@ export default {
 				profession: '',
 				workplace: '',
 				marriage: '',
+				ex_record: '',
+				allergy_record: '',
+				surgery_record: '',
+				family_history: '',
 			},
 			config: {
 				page: 1,
@@ -202,7 +211,7 @@ export default {
 				this.config.loading = false
 			})
 		},
-		editDetail(row) {
+		Update_Information(row) {
 			this.operateType = 'edit'
 			this.isShow = true
 			this.operateForm = row

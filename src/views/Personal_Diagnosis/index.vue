@@ -38,17 +38,10 @@
 		></common-table>
 	</div>
 </template>
-<style>
-  .el-select .el-input {
-    width: 130px;
-  }
-  .input-with-select .el-input-group__prepend {
-    background-color: #fff;
-  }
-</style>
+
 <script>
 import CommonForm from '../../components/CommonForm.vue'
-import CommonTable from '../../components/DiagnosisTable.vue'
+import CommonTable from '../../components/Detail_Table.vue'
 import { getUser } from '../../../api/data.js'
 export default {
 	name: 'user',
@@ -169,16 +162,16 @@ export default {
 			tableData: [],
 			tableLabel: [
 				{
-					prop: 'name',
-					label: '姓名',
-				},
-				{
-					prop: 'sexLabel',
+					prop: 'doctor_name',
 					label: '医生',
 				},
 				{
-					prop: 'password',
+					prop: 'dept',
 					label: '科室',
+				},
+				{
+					prop: 'result',
+					label: '诊断结果',
 					width: 320,
 				},
 				{

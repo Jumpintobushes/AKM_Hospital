@@ -119,24 +119,29 @@ export default {
 					type: 'input',
 				},
 				{
-					model: 'marriage',
+					model: 'ex_record',
 					label: '既往病史',
-					type: 'input',
+					type: 'textarea',
 				},
 				{
-					model: 'marriage',
+					model: 'allergy_record',
 					label: '过敏史',
-					type: 'input',
+					type: 'textarea',
 				},
 				{
-					model: 'marriage',
+					model: 'surgery_record',
 					label: '手术史',
-					type: 'input',
+					type: 'textarea',
 				},
 				{
-					model: 'marriage',
+					model: 'family_history',
 					label: '家族病史',
-					type: 'input',
+					type: 'textarea',
+				},
+				{
+					model: 'family_history',
+					label: '随访内容',
+					type: 'textarea',
 				},
 			],
 			operateForm: {
@@ -178,7 +183,7 @@ export default {
 					width: 320,
 				},
 				{
-					prop: 'addr',
+					prop: 'ex_record',
 					label: '病种',
 					width: 320,
 				},
