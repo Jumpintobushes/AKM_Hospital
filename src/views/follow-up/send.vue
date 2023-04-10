@@ -1,36 +1,46 @@
 <template>
 	<div class="manage">
 		<el-dialog
-			:title="'提示'"
+			:title="'详细信息'"
 			:visible.sync="isShow"
-			width="30%"
-			:before-close="handleClose"
 		>
-			<div>确定提交吗？</div>
-			<div slot="footer" class="dialog-footer">
-				<el-button @click="isShow = false">取消</el-button>
-				<el-button type="primary" @click="confirm">确定</el-button>
-			</div>
-		</el-dialog>
-
-
-		<common-form
+			<common-form
 				:formLabel="opertateFormLabel"
 				:form="operateForm"
 				:inline="true"
 				ref="form"
 			>
 			</common-form>
-
-		<div class="manage-footer">
-			<el-button type="primary" @click="addUser">提交</el-button>
+			<div slot="footer" class="dialog-footer">
+				<el-button @click="isShow = false">取消</el-button>
+				<el-button type="primary" @click="confirm">确定</el-button>
+			</div>
+		</el-dialog>
+		<div class="manage-header">
+			<common-form
+				:formLabel="formLabel"
+				:inline="true"
+				:form="searchForm"
+				ref="form"
+			>
+				<el-button type="primary" @click="getList(searchForm.keyword)"
+					>搜索</el-button
+				>
+			</common-form>
 		</div>
-
+		<common-table
+			:tableData="tableData"
+			:tableLabel="tableLabel"
+			:config="config"
+			@changePage="getList()"
+			@edit="editUser"
+			@del="delUser"
+		></common-table>
 	</div>
 </template>
 <script>
 import CommonForm from '../../components/CommonForm.vue'
-import CommonTable from '../../components/CommonTable.vue'
+import CommonTable from '../../components/Dr_Follow-upTable.vue'
 import { getUser } from '../../../api/data.js'
 export default {
 	name: 'user',
@@ -109,30 +119,69 @@ export default {
 					type: 'input',
 				},
 				{
-					model: 'record_date',
-					label: '记录日期',
-					type: 'record_date',
+					model: 'ex_record',
+					label: '既往病史',
+					type: 'textarea',
+				},
+				{
+					model: 'allergy_record',
+					label: '过敏史',
+					type: 'textarea',
+				},
+				{
+					model: 'surgery_record',
+					label: '手术史',
+					type: 'textarea',
+				},
+				{
+					model: 'family_history',
+					label: '家族病史',
+					type: 'textarea',
+				},
+				{
+					model: 'family_history',
+					label: '随访内容',
+					type: 'textarea',
 				},
 			],
 			operateForm: {
 				id: '',
 				patient_name: '',
-				sex: '',
-				tel: '',
-				birth: '',
-				id_number: '',
-				address: '',
-				nation: '',
-				profession: '',
-				workplace: '',
-				marriage: '',
-				record_date: new Date(),
 			},
 			formLabel: [
 				{
 					model: 'keyword',
 					label: '',
 					type: 'input',
+				},
+			],
+			searchForm: {
+				keyword: '',
+			},
+			tableData: [],
+			tableLabel: [
+				{
+					prop: 'patient_name',
+					label: '姓名',
+				},
+				{
+					prop: 'sexLabel',
+					label: '性别',
+				},
+				{
+					prop: 'password',
+					label: '身份证号',
+					width: 320,
+				},
+				{
+					prop: 'ex_record',
+					label: '病种',
+					width: 320,
+				},
+				{
+					prop: 'addr',
+					label: '发送时间',
+					width: 320,
 				},
 			],
 			config: {
@@ -157,30 +206,12 @@ export default {
 				})
 			}
 		},
-		addUser() {
-			this.isShow = true
-			this.operateType = 'add'
-			this.operateForm = {
-				id: '',
-				patient_name: '',
-				sex: '',
-				tel: '',
-				birth: '',
-				id_number: '',
-				address: '',
-				nation: '',
-				profession: '',
-				workplace: '',
-				marriage: '',
-				record_date: '',
-			}
-		},
-		getList(patient_name = '') {
+		getList(name = '') {
 			this.config.loading = true
-			patient_name ? (this.config.page = 1) : ''
+			name ? (this.config.page = 1) : ''
 			getUser({
 				page: this.config.page,
-				patient_name,
+				name,
 			}).then(({ data: res }) => {
 				console.log(res, 'res')
 				this.tableData = res.list.map((item) => {

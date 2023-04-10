@@ -25,7 +25,7 @@ for (let i = 0; i < count; i++) {
       uid: Mock.Random.guid(),//全局唯一的随机id——————uid
       account: Mock.Random.id(),
       sex: Mock.Random.integer(0, 1),//0male 1female
-      password: Mock.Random.word(),
+      password: Mock.Random.id(),
       patient_name: Mock.Random.cname(),//随机中文名————————用户名/账号
       identity: Mock.Random.integer(0, 1)//随机性别：0医生1患者
     })

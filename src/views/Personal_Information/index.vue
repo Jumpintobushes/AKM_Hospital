@@ -58,7 +58,7 @@ export default {
 	},
 	data() {
 		return {
-			operateType: 'add',
+			operateType: 'edit',
 			isShow: false,
 			PWisShow: false,
 			opertateFormLabel: [
