@@ -55,12 +55,12 @@ export default {
 			isShow: false,
 			opertateFormLabel: [
 				{
-					model: 'id',
-					label: 'id',
+					model: 'doctor_id',
+					label: '医生id',
 					type: 'input',
 				},
 				{
-					model: 'tel',
+					model: 'doctor_tel',
 					label: '电话',
 					type: 'input',
 				},
@@ -75,7 +75,7 @@ export default {
 					type: 'input',
 				},
 				{
-					model: 'sex',
+					model: 'doctor_sex',
 					label: '性别',
 					type: 'select',
 					opts: [
@@ -91,11 +91,11 @@ export default {
 				},
 			],
 			operateForm: {
-				id: '',
-				tel: '',
+				doctor_id: '',
+				doctor_tel: '',
 				dept: '',
 				doctor_name: '',
-				sex: '',
+				doctor_sex: '',
 			},
 			formLabel: [
 				{
@@ -110,26 +110,26 @@ export default {
 			tableData: [],
 			tableLabel: [
 				{
-					prop: 'id',
-					label: 'id',
+					prop: 'doctor_id',
+					label: '医生id',
 					width: 320,
-				},
-				{
-					prop: 'tel',
-					label: '电话',
-				},
-				{
-					prop: 'dept',
-					label: '科室',
-					//width: 320,
 				},
 				{
 					prop: 'doctor_name',
 					label: '姓名',
 				},
 				{
-					prop: 'sexLabel',
+					prop: 'doctor_sexLabel',
 					label: '性别',
+				},
+				{
+					prop: 'doctor_tel',
+					label: '电话',
+				},
+				{
+					prop: 'dept',
+					label: '科室',
+					//width: 320,
 				},
 			],
 			config: {
@@ -174,7 +174,7 @@ export default {
 			}).then(({ data: res }) => {
 				console.log(res, 'res')
 				this.tableData = res.list.map((item) => {
-					item.sexLabel = item.sex === 0 ? '女' : '男'
+					item.doctor_sexLabel = item.doctor_sex === 0 ? '女' : '男'
 					return item
 				})
 				this.config.total = res.count
@@ -192,10 +192,10 @@ export default {
 				cancelButtonText: '取消',
 				type: 'warning',
 			}).then(() => {
-				const id = row.id
+				const doctor_id = row.doctor_id
 				this.$http
 					.post('/user/del', {
-						params: { id },
+						params: { doctor_id },
 					})
 					.then(() => {
 						this.$message({

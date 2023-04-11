@@ -55,8 +55,8 @@ export default {
 			isShow: false,
 			opertateFormLabel: [
 				{
-					model: 'id',
-					label: 'id',
+					model: 'user_id',
+					label: '用户id',
 					type: 'input',
 				},
 				{
@@ -70,12 +70,12 @@ export default {
 					type: 'input',
 				},
 				{
-					model: 'name',
+					model: 'user_name',
 					label: '姓名',
 					type: 'input',
 				},
 				{
-					model: 'status',
+					model: 'user_status',
 					label: '用户身份',
 					type: 'select',
 					opts: [
@@ -91,11 +91,11 @@ export default {
 				},
 			],
 			operateForm: {
-				id: '',
+				user_id: '',
 				account_number: '',
 				password: '',
-				name: '',
-				status: '',
+				user_name: '',
+				user_status: '',
 			},
 			formLabel: [
 				{
@@ -110,8 +110,8 @@ export default {
 			tableData: [],
 			tableLabel: [
 				{
-					prop: 'id',
-					label: 'id',
+					prop: 'user_id',
+					label: '用户id',
 					width: 320,
 				},
 				{
@@ -124,11 +124,11 @@ export default {
 					//width: 320,
 				},
 				{
-					prop: 'name',
+					prop: 'user_name',
 					label: '用户名',
 				},
 				{
-					prop: 'statusLabel',
+					prop: 'user_statusLabel',
 					label: '用户身份',
 				},
 			],
@@ -158,23 +158,23 @@ export default {
 			this.isShow = true
 			this.operateType = 'add'
 			this.operateForm = {
-				id: '',
+				user_id: '',
 				account_number: '',
 				password: '',
-				name: '',
-				status: '',
+				user_name: '',
+				user_status: '',
 			}
 		},
-		getList(name = '') {
+		getList(user_name = '') {
 			this.config.loading = true
-			name ? (this.config.page = 1) : ''
+			user_name ? (this.config.page = 1) : ''
 			getUser({
 				page: this.config.page,
-				name,
+				user_name,
 			}).then(({ data: res }) => {
 				console.log(res, 'res')
 				this.tableData = res.list.map((item) => {
-					item.statusLabel = item.status === 0 ? '患者' : '医生'
+					item.user_statusLabel = item.user_status === 0 ? '患者' : '医生'
 					return item
 				})
 				this.config.total = res.count
@@ -192,10 +192,10 @@ export default {
 				cancelButtonText: '取消',
 				type: 'warning',
 			}).then(() => {
-				const id = row.id
+				const user_id = row.user_id
 				this.$http
 					.post('/user/del', {
-						params: { id },
+						params: { user_id },
 					})
 					.then(() => {
 						this.$message({
